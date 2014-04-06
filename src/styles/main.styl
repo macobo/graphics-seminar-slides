@@ -18,6 +18,8 @@ bullet_transition_length = .3s
 bullet_transition_easing = ease
 bullet_transition_translate_x = 16px
 
+play_size = 100px
+
 // base
 
 html, body
@@ -129,14 +131,90 @@ article
   @media print
     transform: none !important
 
+
+pre, code
+  text-transform: none
+  font-family: Consolas, Monaco, "Courier New", Courier, monospace
+  line-height: 1.25
+  font-weight: 100
+
+pre.snippet
+  display: inline-block
+  background: darken( #06b3db, 10% )
+  text-align: left
+  font-size: 13px
+  max-width: 960px
+  padding: 20px
+  margin: 20px auto 0 auto
+
+  .comment
+
+      opacity: 0.5
+      color: #fff
+
+.code
+
+    //$padding: 20px
+
+    //+box-sizing( content-box )
+    //background: #272822
+    text-align: left
+    font-size: 13px
+    overflow: scroll
+    padding: 20px
+    height: 100%
+    width: 100%
+    left: 0
+    top: 0
+    position: absolute
+    .diff
+      border: 1px dashed fade-out( #fff, 0.8 )
+      display: inline-block
+      //border-bottom: $border
+      //border-top: $border
+      background: darken( #272822, 2% )
+      position: relative
+      padding: 10px 0 10px 20px
+      margin: 10px 0
+      width: 100%
+      left: -20px
 .demo
   background: #fff
-  //position: absolute
+  // position: absolute
   height: 100%
   width: 100%
   right: 0
   top: 0
+a.demo-link
+  font-size: 10px
+.play
+  background: fade-out( #06b3db, 0.05 )
+  font-size: 48px
+  position: absolute
+  height: 100%
+  width: 100%
+  right: 0
+  top: 0
+  &:after
+    border-radius( 3px )
+    background: fade-out( #06b3db, 0.2 )
+    margin-left: play_size * -0.5
+    margin-top: play_size * -0.5
+    line-height: play_size
+    font-size: 48px
+    position: absolute
+    content: '\25B6'
+    display: block
+    height: play_size
+    width: play_size
+    left: 50%
+    top: 50%
 
+.split
+  .code, .demo
+      width: 50%
+  .play
+      width: 50%
 
 // prism styles
 

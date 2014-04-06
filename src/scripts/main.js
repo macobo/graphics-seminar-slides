@@ -40,9 +40,10 @@ bespoke.plugins.coder = function( deck ) {
         var code = document.createElement( 'pre' );
         code.className = 'code';
 
-        slide.appendChild( code );
+        slide.insertBefore( code, slide.firstChild );;
 
         loadHTML( path, function( data ) {
+            console.log(data);
 
             var diff = slide.getAttribute( 'data-diff' );
 
@@ -65,7 +66,7 @@ bespoke.plugins.coder = function( deck ) {
 
         var auto = slide.getAttribute( 'data-auto' );
 
-        slide.appendChild( demo );
+        slide.insertBefore( demo, slide.firstChild );
 
         if ( auto !== 'true' ) {
 
@@ -95,6 +96,14 @@ bespoke.plugins.coder = function( deck ) {
             play.addEventListener( 'click', init );
             slide.appendChild( play );
         }
+
+        var insertLink = slide.getAttribute('data-insert-link');
+
+        if (insertLink !== null) {
+            var link = $("<a>", { href: path, class: "demo-link" }).append(path.slice(7));
+            $(slide).append(link);
+            slide.removeAttribute('data-insert-link', null);
+        }
     }
 
     deck.on( 'activate', function( event ) {
@@ -108,8 +117,8 @@ bespoke.plugins.coder = function( deck ) {
         if ( demo ) makeDemo( slide, demo );
 
         if ( both ) {
-            makeCode( slide, both );
             makeDemo( slide, both );
+            makeCode( slide, both );
             slide.className += ' split';
         }
 
@@ -152,7 +161,7 @@ bespoke.plugins.coder = function( deck ) {
                 if ( slide.hasVideo ) slide.removeChild( slide.querySelector( 'video' ) );
                 if ( slide.hasCode  ) slide.removeChild( slide.querySelector( '.code' ) );
                 if ( slide.hasDemo  ) slide.removeChild( slide.querySelector( '.demo' ) );
-            }, 1000 );
+            }, 500 );
         }
     });
 };
@@ -160,7 +169,7 @@ bespoke.from('article', {
   keys: true,
   touch: true,
   coder: true,
-  bullets: 'li, .bullet',
+  bullets: 'ul:not(.no-bullets) li, ol:not(.no-bullets) li, .bullet',
   scale: true,
   hash: true,
   forms: true

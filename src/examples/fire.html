@@ -1,0 +1,183 @@
+<html><head>
+
+<title>Point sprites demo</title>
+<style>
+canvas {
+position: absolute;
+left: 0px;
+right: 0px;
+margin: auto auto;
+}
+</style>
+<script id="shader-fs" type="x-shader/x-fragment">
+precision mediump float;
+  uniform sampler2D sTexture;
+  varying vec2 color;
+  varying float vLifetime;
+  void main(void) {
+    vec4 texColor = texture2D(sTexture, gl_PointCoord);
+//    if (texColor.a == 0.) discard;
+    gl_FragColor = vec4(color, 0., 1.) * texColor;
+    gl_FragColor.a = vLifetime;
+  }
+</script>
+
+<script id="shader-vs" type="x-shader/x-vertex">
+  attribute float aLifetime;
+  attribute float aXPos;
+  attribute float aYSpeed;
+  attribute vec2 aColor;
+  uniform float uTime;
+  uniform float uPointSize;
+  varying float vLifetime;
+  varying vec2 color;
+  void main(void) {
+    vLifetime = mod(uTime, aLifetime);
+    float ti = 1. - vLifetime/aLifetime;
+    gl_Position = vec4(aXPos*ti, aYSpeed*vLifetime - 1., 0., 1.);
+    vLifetime = 4.*ti*(1. - ti);
+    color = aColor;
+    gl_PointSize = uPointSize;
+  }
+</script>
+ 
+<script type="text/javascript"> 
+var gl,  canvas, frTimer;
+  
+function getShader ( gl, id ){
+   var shaderScript = document.getElementById ( id );
+   var str = "";
+   var k = shaderScript.firstChild;
+   while ( k ){
+     if ( k.nodeType == 3 ) str += k.textContent;
+     k = k.nextSibling;
+   }
+   var shader;
+   if ( shaderScript.type == "x-shader/x-fragment" )
+           shader = gl.createShader ( gl.FRAGMENT_SHADER );
+   else if ( shaderScript.type == "x-shader/x-vertex" )
+           shader = gl.createShader(gl.VERTEX_SHADER);
+   else return null;
+   gl.shaderSource(shader, str);
+   gl.compileShader(shader);
+   if (gl.getShaderParameter(shader, gl.COMPILE_STATUS) == 0)
+      alert(gl.getShaderInfoLog(shader));
+   return shader;
+}
+requestAnimFrame = (function(){
+  return  window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    function(callback, element){ setTimeout(callback, 1000 / 60); }
+})();
+
+function webGLStart() {
+   canvas = document.getElementById("canvas");
+   var size = Math.min(window.innerWidth, window.innerHeight)-20;
+   canvas.width =  size;   canvas.height = size;
+   if (!window.WebGLRenderingContext){
+     alert("Your browser does not support WebGL. See http://get.webgl.org");
+     return;}
+   try { gl = canvas.getContext("experimental-webgl");
+   } catch(e) {}
+   if ( !gl ) {alert("Can't get WebGL"); return;}
+   gl.viewport(0, 0, size, size);
+
+   var texture = loadTexture("/img/particle.gif");
+
+   var prog  = gl.createProgram();
+   gl.attachShader(prog, getShader( gl, "shader-vs" ));
+   gl.attachShader(prog, getShader( gl, "shader-fs" ));
+   gl.linkProgram(prog);
+   gl.useProgram(prog);
+
+   var numParticles = 300,
+       lifetimes = [], xPos = [], ySpeed = [], colors = [];
+   for (var i=0; i < numParticles; i++)  {
+      lifetimes.push( 2*Math.random() + 1 );
+      xPos.push( 1.5*(Math.random() - .5) );
+      ySpeed.push( .7*Math.random() );
+      colors.push( Math.random() );  colors.push( .2*Math.random() );
+   }
+   var aLifeTimeLoc = gl.getAttribLocation(prog, "aLifetime");
+   gl.enableVertexAttribArray( aLifeTimeLoc );
+   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(lifetimes), gl.STATIC_DRAW);
+   gl.vertexAttribPointer( aLifeTimeLoc, 1, gl.FLOAT, false, 0, 0);
+
+   var xLoc = gl.getAttribLocation(prog, "aXPos");
+   gl.enableVertexAttribArray( xLoc );
+   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(xPos), gl.STATIC_DRAW);
+   gl.vertexAttribPointer( xLoc, 1, gl.FLOAT, false, 0, 0);
+
+   var speedLoc = gl.getAttribLocation(prog, "aYSpeed");
+   gl.enableVertexAttribArray( speedLoc );
+   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(ySpeed), gl.STATIC_DRAW);
+   gl.vertexAttribPointer( speedLoc, 1, gl.FLOAT, false, 0, 0);
+
+   var colLoc = gl.getAttribLocation(prog, "aColor");
+   gl.enableVertexAttribArray( colLoc );
+   gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+   gl.vertexAttribPointer( colLoc, 2, gl.FLOAT, false, 0, 0);
+
+   var time0 = frTime = new Date().getTime(), frames = 0;
+   gl.uniform1i( gl.getUniformLocation(prog, "sTexture"), 0);
+   gl.uniform1f( gl.getUniformLocation(prog, "uPointSize"), size/5);
+   var uTimeLoc = gl.getUniformLocation(prog, "uTime");
+
+   gl.enable(gl.BLEND);
+   gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
+   gl.clearColor(0, 0, 0, 1);
+   frTimer = setInterval(fr, 500);
+   anim();
+
+   function anim(){
+    drawScene();
+    requestAnimFrame(anim);
+   }
+   function drawScene(){
+     var time = new Date().getTime();
+     time = (time - time0)/1000;
+     gl.uniform1f(uTimeLoc, time );
+     gl.clear(gl.COLOR_BUFFER_BIT );
+     gl.drawArrays(gl.POINTS, 0, numParticles);
+     gl.flush ();
+     frames++;
+   }
+   function fr(){
+     var ti = new Date().getTime();
+     var fps = Math.round(1000*frames/(ti - frTime));
+
+     frames = 0;  frTime = ti;
+   }
+
+   function loadTexture(src) {
+     var texture = gl.createTexture();
+     gl.bindTexture(gl.TEXTURE_2D, texture);
+     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);    
+     var image = new Image();
+     image.src = src;
+     image.onload = function() {
+       gl.bindTexture(gl.TEXTURE_2D, texture);
+       gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE,
+         image);
+     };
+     return texture;
+   }
+  canvas.resize = function (){
+    var size = Math.min(window.innerWidth, window.innerHeight) - 30;
+    canvas.width =  size;   canvas.height = size;
+    gl.viewport(0, 0, size, size);
+    drawScene();
+  }
+}
+</script> 
+<style type="text/css"></style></head>
+<body onload="webGLStart();" onresize="canvas.resize();" style="background-color: black"> 
+   <canvas id="canvas"></canvas>
+</body></html>

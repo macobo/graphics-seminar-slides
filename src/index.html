@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,6 +7,7 @@
     <!-- build:css styles/styles.css-->
     <link rel="stylesheet" type="text/css" href="bower_components/prism/themes/prism-tomorrow.css">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/highlight.js/src/styles/solarized_light.css">
     <!-- endbuild-->
   </head>
   <body>
@@ -19,16 +19,101 @@
       <section data-bespoke-hash="what_is_it">
         <h2>What is it?</h2>
         <ul>
-          <li>Lots of small sprites.</li>
-          <li>Mainly used to simulate quickly fading phenomens.</li>
-          <li>
-            
-          </li>
+          <li></li>
+          <li >Lots of small sprites.</li>
+          <li>Mainly used to simulate quickly fading phenomenons.</li>
         </ul>
+      </section>
+
+      <section>
+        <h2>Basic demos</h2>
+      </section>
+
+      <section data-demo="examples/fire.html" data-auto="true">
+        <a href="http://stemkoski.github.io/Three.js/Particle-Engine.html" class="demo-link">
+          stemkoski.github.io/Three.js/Particle-Engine.html
+        </a>
+      </section>
+
+      <section data-demo="http://stemkoski.github.io/Three.js/Particle-Engine.html" data-auto="true" data-insert-link>
+      </section>
+
+      <section data-demo="http://jeromeetienne.github.io/fireworks.js/examples/smoke/webgl_blacksmoke.html" data-auto="true" data-insert-link>
+      </section>
+
+      <section>
+        <h2>So, to generalize - emitter</h2>
+        <ul>
+          <li></li>
+          <li>Each particle system has one.<li>
+          <li>Controls the spawn rate of particles.</li>
+          <li>Particles (usually) originate from emitters coordinates.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>So, to generalize - particles</h2>
+        <ul>
+          <li></li>
+          <li>Have a number of attributes associated with them</li>
+          <li>position</li>
+          <li>lifetime</li>
+          <li>color</li>
+          <li>speed</li>
+          <li>acceleration, force accumulators, ....</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="bullet">In addition...</h2>
+        <ul>
+          <li>We can give a texture to each particle.</li>
+          <li>Initial values of attributes are usually "fuzzy".</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Updating state</h2>
+        <ul>
+          <li></li>
+          <li>A general particle engine must allow the user to change the state of each particle on updates.</li>
+          <li>Usually handled by allowing to attach custom "event handlers".</li>
+          <li>Efficiency - dead particles are reused.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Update/simulation flow</h2>
+        <ul>
+          <li>New particles are created, .onCreate handlers called for each particle (set position, initial color, etc).</li>
+          <li>Particles exceeding lifetime killed, returning them to particle pool.</li>
+          <li>For each particle, a .update call is made (doing movement, etc).</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Three.js example</h2>
+
+        <a href="http://jeromeetienne.github.io/fireworks.js/examples/smoke/webgl_blacksmoke.html">
+          jeromeetienne.github.io/fireworks.js/examples/smoke/webgl_blacksmoke.html
+        </a>
 
       </section>
-      <section data-demo="http://stemkoski.github.io/Three.js/Particle-Engine.html" data-auto="true">
-        <a href="http://stemkoski.github.io/Three.js/Particle-Engine.html">stemkoski.github.io/Three.js/Particle-Engine.html</a>
+
+      <section data-code="examples/fireworks.js.html"></section>
+
+      <!-- <section data-code="examples/fireworks.js.html"></section> -->
+<!--       <section data-demo="http://jeromeetienne.github.io/fireworks.js/examples/smoke/webgl_blacksmoke.html" data-auto="true" data-insert-link> -->
+      <section>
+        <h2 class="bullet">Time to go home?</h2>
+        <h4 class="bullet">Nah. Stuff so far has been pretty basic (lots of demos).</h4>
+      </section>
+
+      <section data-demo="http://oos.moxiecode.com/js_webgl/particles_morph/" data-auto="true" data-insert-link></section>
+      <section data-demo="http://www.play-create.com/projects/smokeandmirror/" data-auto="true" data-insert-link></section>
+      <section data-demo="http://nucleal.com/" data-auto="true" data-insert-link></section>
+      <section>
+        <iframe width="560" height="315" src="//www.youtube.com/embed/eSWm_VImgFQ" frameborder="0" allowfullscreen></iframe>
       </section>
 <!--       <section>
         <h2>Keyboard Interaction</h2>
@@ -92,6 +177,8 @@
     <script src="bower_components/bespoke-hash/dist/bespoke-hash.min.js"></script>
     <script src="bower_components/bespoke-forms/dist/bespoke-forms.min.js"></script>
     <script src="bower_components/prism/prism.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="scripts/vendor/highlight.min.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild-->
   <!-- livereload script -->
