@@ -56,13 +56,15 @@ bespoke.plugins.coder = function( deck ) {
         });
     }
 
-    function makeDemo( slide, path ) {
+    function makeDemo( slide, path, absolute ) {
 
         slide.hasDemo = true;
 
         var demo = document.createElement( 'iframe' );
         demo.className = 'demo';
         demo.src = path;
+        if (absolute)
+            $(demo).css("position", "absolute");
 
         var auto = slide.getAttribute( 'data-auto' );
 
@@ -117,7 +119,7 @@ bespoke.plugins.coder = function( deck ) {
         if ( demo ) makeDemo( slide, demo );
 
         if ( both ) {
-            makeDemo( slide, both );
+            makeDemo( slide, both, true );
             makeCode( slide, both );
             slide.className += ' split';
         }
