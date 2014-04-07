@@ -72,11 +72,12 @@
       </section>
 
       <section>
-        <h2>So, to generalize - emitter</h2>
+        <h2>Emitters</h2>
         <ul>
           <li></li>
-          <li>Centralpiece of each particle system.<li>
+          <li>Centralpiece of each particle system, commander.<li>
           <li>Controls the spawn rate of particles.</li>
+          <li>Allows to add behaviours to particles.</li>
           <li>Particles (usually) originate from emitters coordinates.</li>
         </ul>
       </section>
@@ -117,6 +118,9 @@
         </a>
 
       </section> -->
+      <section>
+        <h2>Fireworks.js examples</h2>
+      </section>
 
       <section data-both="examples/smoke.html" data-auto="true"></section>
 
@@ -179,6 +183,10 @@
         </p>
       </section>
 
+      <section data-demo="http://www.cake23.de/fmx/turing-fluid-particle-projection-feedback.html" data-auto="true" data-include-link>
+        
+      </section>
+
       <section>
         <h2 class="bullet">But - this is a tradeoff</h2>
         <h4 class="bullet">Fast vs easy to develop.</h4>
@@ -199,20 +207,69 @@
       <section data-demo="http://plopbyte.com/webgl-particles-demo/" data-auto="true" data-insert-link></section>
 
       <section>
-        <iframe width="560" height="315" src="//www.youtube.com/embed/cJ0fDxa0M8M&start=#t=3m20s" frameborder="0" allowfullscreen></iframe>
+        <iframe width="420" height="315" src="http://www.youtube.com/embed/cJ0fDxa0M8M?start=200" frameborder="0" allowfullscreen></iframe>
       </section>
 
       <section>
         <h2>Crowd modeling</h2>
+        <ul>
+          <li>Particles represent agents, creatures.</li>
+          <li>Option - each agent controlled separately, neighbors taken into account.</li>
+          <li>Option - behaviour of the whole group is modeled.</li>
+          <li>Used for example in LOTR - <a href="http://knoesis.wright.edu/students/topher/courses/anim/slides/lotr_prologue_battle.html">link to an article</a>.</li>
+        </ul>
       </section>
 
       <section>
         <h2>Flocking</h2>
+        <ul>
+          <li>Algorithm for simulating groups of entities moving together.</li>
+          <li>Developed by Craig Reynolds in 1986.</li>
+          <li>All entities are controlled by three rules.</li>
+        </ul>
       </section>
 
+      <section>
+        <h2 class="bullet">Flocking - rules</h2>
+        <ul>
+          <li>Separation - don't let other agents get too close.</li>
+          <li>Alignment - steer towards average heading of neighbors.</li>
+          <li>Cohersion - steer towards average position of neighbors.</li>
+        </ul>
+      </section>
+
+      <section data-demo="http://harry.me/blog/2011/02/17/neat-algorithms-flocking/" data-auto="true" data-insert-link></section>
+
+      <section data-demo="http://jabtunes.com/labs/3d/gpuflocking/webgl_gpgpu_flocking6.html" data-auto="true" data-insert-link>
+        
+        <a class="demo-link" href="http://www.lab4games.net/zz85/blog/2014/02/17/webgl-gpgpu-flocking-birds-part-ii-shaders/">Blogpost</a>
+      </section>
 
       <section>
         <iframe width="560" height="315" src="//www.youtube.com/embed/eSWm_VImgFQ" frameborder="0" allowfullscreen></iframe>
+      </section>
+
+      <section>
+        <h2>Suggested reading</h2>
+        <ul class="no-bullets">
+          <li>
+            <a href="http://knoesis.wright.edu/students/topher/courses/anim/slides/lotr_prologue_battle.html">
+              Lord of the Rings prologue battle
+            </a>
+          </li>
+          <li>
+            <a href="http://harry.me/blog/2011/02/17/neat-algorithms-flocking/">Neat algorithms - flocking</a>
+          </li>
+          <li>
+            Creation of 1M particles
+            <a href="http://new.livestream.com/hugeinc/events/2192947/videos/22080233?query=webgl&cat=video">talk</a>, <a href="https://github.com/hugeinc/doctype-meetup/tree/master/dissecting-webgl">slides</a>
+          </li>
+          <li>
+            <a href="http://www.soulwire.co.uk/experiments">
+              Experiments by Justin Widle
+            </a>
+          </li>
+        </ul>
       </section>
 
       <section data-demo="http://macobo.github.io/WebGL-Audio-Visualization/#/thankyou" data-auto="true" data-insert-link></section>
