@@ -42,6 +42,12 @@
       <section data-demo="http://jeromeetienne.github.io/fireworks.js/examples/smoke/webgl_blacksmoke.html" data-auto="true" data-insert-link>
       </section>
 
+      <section data-demo="http://www.bongiovi.tw/experiments/webgl/blossom/" data-auto="true" data-insert-link>
+      </section>
+
+      <section data-demo="http://threejs.org/examples/webgl_particles_shapes.html" data-auto="true" data-insert-link>
+      </section>
+
       <section>
         <h2>So, to generalize - particles</h2>
         <ul>
@@ -61,7 +67,7 @@
         <ul>
           <li>We can give a texture to each particle.</li>
           <li>Initial values of attributes are usually "fuzzy".</li>
-          <li>Behavious changes with time</li>
+          <li>Behaviour changes with time.</li>
         </ul>
       </section>
 
@@ -117,18 +123,46 @@
       <!-- <section data-code="examples/fireworks.js.html"></section> -->
       <section data-both="examples/flamethrower.html" data-auto="true">
       </section>
+
       <section>
         <h2 class="bullet">Time to go home?</h2>
         <h4 class="bullet">Nah. Stuff so far has been pretty basic (lots of demos).</h4>
       </section>
 
       <section>
+        <h4 class="bullet">Motion of a particle can be driven by:</h4>
+        <br/>
+        <ul>
+          <li>Exterior forces: wind, gravity, targetting</li>
+          <li>Physical interaction - gravity, spring connections, collisions</li>
+          <li>"self determination" - AI, randomness</li>
+        </ul>
+      </section>
+
+      <section data-demo="http://soulwire.github.io/Coffee-Physics/" data-auto="true" data-include-link>
+        
+      </section>
+
+      <section>
         <h2 class="bullet">Performance</h2>
         <ul>
-          <li>The methods discussed before are slow - after ~10000 particles things start to get slow</li>
+          <li>Increasing particle count makes stuff more impressive.</li>
+          <li><strong>But,</strong> it gets slow fast</li>
+        </ul>
+      </section>
+
+      <section data-demo="http://minimal.be/lab/fluGL/index80000.html"
+              data-auto="true">
+        <a href="http://minimal.be/lab/fluGL/index80000.html" class="demo-link">minimal.be/lab/fluGL/index80000.html</a>
+      </section>
+
+      <section>
+        <h2 class="bullet">(Increasing) performance</h2>
+        <ul>
+          <li>Problem is that we're doing work in serial.</li>
           <li>Idea: web workers?</li>
           <li>Idea: can we offload calculations to the GPU?</li>
-          <li>Yes we can - shaders!</li>
+          <li>Yes we can - let's use shaders!</li>
         </ul>
       </section>
 
@@ -145,9 +179,27 @@
         </p>
       </section>
 
+      <section>
+        <h2 class="bullet">But - this is a tradeoff</h2>
+        <h4 class="bullet">Fast vs easy to develop.</h4>
+      </section>
+
 
       <section>
-        <h2>Fun uses</h2>
+        <h2>Other uses</h2>
+        <h4>Morphing, exploding pictures, ...</h4>
+      </section>
+
+      <section data-demo="http://oos.moxiecode.com/js_webgl/particles_morph/" data-auto="true" data-insert-link></section>
+
+      <section data-demo="http://www.play-create.com/projects/smokeandmirror/" data-auto="true" data-insert-link></section>
+
+      <section data-demo="http://nucleal.com/" data-auto="true" data-insert-link></section>
+
+      <section data-demo="http://plopbyte.com/webgl-particles-demo/" data-auto="true" data-insert-link></section>
+
+      <section>
+        <iframe width="560" height="315" src="//www.youtube.com/embed/cJ0fDxa0M8M&start=#t=3m20s" frameborder="0" allowfullscreen></iframe>
       </section>
 
       <section>
@@ -158,12 +210,12 @@
         <h2>Flocking</h2>
       </section>
 
-      <section data-demo="http://oos.moxiecode.com/js_webgl/particles_morph/" data-auto="true" data-insert-link></section>
-      <section data-demo="http://www.play-create.com/projects/smokeandmirror/" data-auto="true" data-insert-link></section>
-      <section data-demo="http://nucleal.com/" data-auto="true" data-insert-link></section>
+
       <section>
         <iframe width="560" height="315" src="//www.youtube.com/embed/eSWm_VImgFQ" frameborder="0" allowfullscreen></iframe>
       </section>
+
+      <section data-demo="http://macobo.github.io/WebGL-Audio-Visualization/#/thankyou" data-auto="true" data-insert-link></section>
 
       <!-- What do you mean, it's not real? https://www.youtube.com/watch?v=T6W3oiifhKE -->
       <!--
@@ -184,6 +236,10 @@
 
               Same guy-idea as smoke
                   http://www.play-create.com/id.php?032
+            
+
+            http://www.cake23.de/fmx/turing-fluid-particle-projection-feedback.html
+
             
             Engines
               Coffee physics: http://soulwire.co.uk/experiments/coffee-physics/
