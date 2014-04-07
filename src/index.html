@@ -15,7 +15,7 @@
     <article>
       <section>
         <h1>Particle systems</h1>
-        <h3 class="pull-right">Karl-Aksel Puulmann, 2014</h3>
+        <h5 class="pull-right">Karl-Aksel Puulmann, 2014</h5>
       </section>
       <section data-bespoke-hash="what_is_it">
         <h2>What is a particle system</h2>
@@ -111,7 +111,7 @@
           <li>Render each particle as a quad facing camera.
           <li>Apply sprites/textures in shaders.</li>
           <li>Do distance sorting beforehand - avoids issues with transparency.</li>
-          <li>Often handled for you?</li>
+          <li>?Often handled for you?</li>
         </ul>
       </section>
 
@@ -131,7 +131,7 @@
       </section>
 
       <section>
-        <h4 class="bullet">Motion of a particle can be driven by:</h4>
+        <h3 class="bullet">Motion of a particle can be driven by:</h4>
         <br/>
         <ul>
           <li>Exterior forces: wind, gravity, targetting</li>
@@ -225,6 +225,7 @@
           <li>Algorithm for simulating groups of entities moving together.</li>
           <li>Developed by Craig Reynolds in 1986.</li>
           <li>All entities are controlled by three rules.</li>
+          <li></li>
         </ul>
       </section>
 
@@ -252,6 +253,20 @@
           <li>Hidden motivations.</li>
           <li>What happens on collisions?</li>
           <li>Traffic crossing?</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="bullet">Recap</h2>
+        <ul>
+          <li>Particle system - collection of individual particles.</li>
+          <li>Used to visualize complex systems.</li>
+          <li>Properties and lifecycles of particles, how to update.</li>
+          <li>How to render particles, sprites.</li>
+          <li>Forces that affect particles, how to simulate.</li>
+          <li>How to render 1M particles.</li>
+          <li>How to model crowds, birds.</li>
+          <li>Demos!</li>
         </ul>
       </section>
 
@@ -310,59 +325,11 @@
             Videos
               https://vimeo.com/19920603
       -->
-<!--       <section>
-        <h2>Keyboard Interaction</h2>
-        <h3>Powered by <a href="https://github.com/markdalgleish/bespoke-keys">bespoke-keys</a></h3>
-      </section>
-      <section>
-        <h2>Touch Interaction</h2>
-        <h3>Powered by <a href="https://github.com/markdalgleish/bespoke-touch">bespoke-touch</a></h3>
-      </section>
-      <section>
-        <h2>Responsive Slides</h2>
-        <h3>Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a></h3>
-      </section>
-      <section>
-        <h2>Bullet List</h2>
-        <h3 class="bullet">Powered by <a href="https://github.com/markdalgleish/bespoke-bullets">bespoke-bullets</a></h3>
-        <ul>
-          <li>Bullet 1</li>
-          <li>Bullet 2</li>
-          <li>Bullet 3</li>
-        </ul>
-      </section>
-      <section>
-        <h2>Syntax Highlighting</h2>
-        <h3>Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a></h3>
-        <hr>
-        <pre><code class="language-javascript">bespoke.from('article', {
-  keys: true,
-  touch: true,
-  hash: true,
-  state: true,
-  bullets: 'li, .bullet'
-});
-</code></pre>
-      </section>
-      <section data-bespoke-hash="named-route">
-        <h2>Named Route</h2>
-        <h3>Powered by <a href="https://github.com/markdalgleish/bespoke-hash">bespoke-hash</a></h3>
-        <p>Look up! This route has been named with a <em>'data-bespoke-hash'</em> attribute.</p>
-      </section>
-      <section>
-        <h2 class="bullet">Just the beginning...</h2>
-        <hr>
-        <ul>
-          <li>Edit <a href="http://jade-lang.com/">Jade</a> markup in <em>'src/index.jade'</em></li>
-          <li>Edit <a href="http://learnboost.github.io/stylus/">Stylus</a> styles in <em>'src/styles/main.styl'</em></li>
-          <li>Edit JavaScript in <em>'src/scripts/main.js'</em></li>
-        </ul>
-        <hr>
-        <ul>
-          <li><strong>Enjoy! :)</strong><a href="http://twitter.com/markdalgleish"> -@markdalgleish</a></li>
-        </ul>
-      </section> -->
+
     </article>
+    <footer id="footer">
+      <img src="http://www.cs.ut.ee/sites/default/files/2013/logod/ITA_small-logo-eng.png" />
+    </footer>
     <!-- build:js scripts/scripts.js-->
     <script src="bower_components/bespoke.js/dist/bespoke.min.js"></script>
     <script src="bower_components/bespoke-keys/dist/bespoke-keys.min.js"></script>
