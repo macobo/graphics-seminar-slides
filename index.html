@@ -87,11 +87,12 @@
           <li>A general particle engine must allow the user to change the state of each particle on updates.</li> 
           <li>Usually handled by allowing to attach custom "event handlers".</li>
           <li>Efficiency - dead particles are reused.</li>
+          <li>Have to handle cases when update is not called at 60fps.</li>
         </ul>
       </section>
 
       <section>
-        <h2>Basic loop</h2>
+        <h2>Main loop</h2>
         <ul>
           <li></li>
           <li>New particles are created, .onCreate handlers called for each particle (set position, initial color, etc).</li>

@@ -82,7 +82,7 @@ function webGLStart() {
    if ( !gl ) {alert("Can't get WebGL"); return;}
    gl.viewport(0, 0, size, size);
 
-   var texture = loadTexture("/img/particle.gif");
+   var texture = loadTexture("../img/particle.gif");
 
    var prog  = gl.createProgram();
    gl.attachShader(prog, getShader( gl, "shader-vs" ));
