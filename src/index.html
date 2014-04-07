@@ -17,11 +17,12 @@
         <h1>Particle systems</h1>
       </section>
       <section data-bespoke-hash="what_is_it">
-        <h2>What is it?</h2>
+        <h2>What is a particle system</h2>
         <ul>
           <li></li>
-          <li >Lots of small sprites.</li>
-          <li>Mainly used to simulate quickly fading phenomenons.</li>
+          <li>Series of individiual particles.</li>
+          <li>Mainly used to model complex systems.</li>
+          <li>Fire, smoke, fireworks, snow, stars, ...</li>
         </ul>
       </section>
 
@@ -42,16 +43,6 @@
       </section>
 
       <section>
-        <h2>So, to generalize - emitter</h2>
-        <ul>
-          <li></li>
-          <li>Each particle system has one.<li>
-          <li>Controls the spawn rate of particles.</li>
-          <li>Particles (usually) originate from emitters coordinates.</li>
-        </ul>
-      </section>
-
-      <section>
         <h2>So, to generalize - particles</h2>
         <ul>
           <li></li>
@@ -60,6 +51,7 @@
           <li>lifetime</li>
           <li>color</li>
           <li>speed</li>
+          <li>size</li>
           <li>acceleration, force accumulators, ....</li>
         </ul>
       </section>
@@ -69,6 +61,17 @@
         <ul>
           <li>We can give a texture to each particle.</li>
           <li>Initial values of attributes are usually "fuzzy".</li>
+          <li>Behavious changes with time</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>So, to generalize - emitter</h2>
+        <ul>
+          <li></li>
+          <li>Centralpiece of each particle system.<li>
+          <li>Controls the spawn rate of particles.</li>
+          <li>Particles (usually) originate from emitters coordinates.</li>
         </ul>
       </section>
 
@@ -76,39 +79,83 @@
         <h2>Updating state</h2>
         <ul>
           <li></li>
-          <li>A general particle engine must allow the user to change the state of each particle on updates.</li>
+          <li>A general particle engine must allow the user to change the state of each particle on updates.</li> 
           <li>Usually handled by allowing to attach custom "event handlers".</li>
           <li>Efficiency - dead particles are reused.</li>
         </ul>
       </section>
 
       <section>
-        <h2>Update/simulation flow</h2>
+        <h2>Basic loop</h2>
         <ul>
+          <li></li>
           <li>New particles are created, .onCreate handlers called for each particle (set position, initial color, etc).</li>
           <li>Particles exceeding lifetime killed, returning them to particle pool.</li>
           <li>For each particle, a .update call is made (doing movement, etc).</li>
+          <li>Render</li>
         </ul>
       </section>
 
       <section>
+        <h2>Rendering</h2>
+        <ul>
+          <li></li>
+        </ul>
+      </section>
+
+<!--       <section>
         <h2>Three.js example</h2>
 
         <a href="http://jeromeetienne.github.io/fireworks.js/examples/smoke/webgl_blacksmoke.html">
           jeromeetienne.github.io/fireworks.js/examples/smoke/webgl_blacksmoke.html
         </a>
 
-      </section>
+      </section> -->
 
-      <section data-code="examples/fireworks.js.html"></section>
+      <section data-both="examples/smoke.html" data-auto="true"></section>
 
       <!-- <section data-code="examples/fireworks.js.html"></section> -->
       <section data-both="examples/flamethrower.html" data-auto="true">
-        
       </section>
       <section>
         <h2 class="bullet">Time to go home?</h2>
         <h4 class="bullet">Nah. Stuff so far has been pretty basic (lots of demos).</h4>
+      </section>
+
+      <section>
+        <h2 class="bullet">Performance</h2>
+        <ul>
+          <li>The methods discussed before are slow - after ~10000 particles things start to get slow</li>
+          <li>Idea: web workers?</li>
+          <li>Idea: can we offload calculations to the GPU?</li>
+          <li>Yes we can - shaders!</li>
+        </ul>
+      </section>
+
+      <section>
+        <img src="https://raw.githubusercontent.com/hugeinc/doctype-meetup/c28e6d03470ed220f93597a920251726d8931332/dissecting-webgl/assets/img/physics.png" 
+        style="width: 600px; height: 400px; position: absolute; top: 0px;" />
+      </section>
+
+
+      <section data-demo="http://codepen.io/anon/pen/IvHKi?editors=000" data-auto="true">
+        <p class="demo-link">
+          Modified version of <a href="http://soulwire.github.io/WebGL-GPU-Particles/">http://soulwire.github.io/WebGL-GPU-Particles/</a> via
+          <a href="http://codepen.io/anon/pen/IvHKi?editors=111">Codepen</a>
+        </p>
+      </section>
+
+
+      <section>
+        <h2>Fun uses</h2>
+      </section>
+
+      <section>
+        <h2>Crowd modeling</h2>
+      </section>
+
+      <section>
+        <h2>Flocking</h2>
       </section>
 
       <section data-demo="http://oos.moxiecode.com/js_webgl/particles_morph/" data-auto="true" data-insert-link></section>
@@ -117,6 +164,33 @@
       <section>
         <iframe width="560" height="315" src="//www.youtube.com/embed/eSWm_VImgFQ" frameborder="0" allowfullscreen></iframe>
       </section>
+
+      <!-- What do you mean, it's not real? https://www.youtube.com/watch?v=T6W3oiifhKE -->
+      <!--
+            Demos:
+              GLOW animals: 
+                  http://empaempa.github.io/GLOW/examples/complicated/
+              80000 particles - visually very impressive! 
+                  http://minimal.be/lab/fluGL/index80000.html
+              1M particles
+                  http://www.nutty.ca/?p=320
+
+              Most impressive image blowup
+                  http://plopbyte.com/webgl-particles-demo/
+
+              Simpler demo
+                  http://threejs.org/examples/webgl_particles_shapes.html
+                  http://www.bongiovi.tw/experiments/webgl/blossom/
+
+              Same guy-idea as smoke
+                  http://www.play-create.com/id.php?032
+            
+            Engines
+              Coffee physics: http://soulwire.co.uk/experiments/coffee-physics/
+
+            Videos
+              https://vimeo.com/19920603
+      -->
 <!--       <section>
         <h2>Keyboard Interaction</h2>
         <h3>Powered by <a href="https://github.com/markdalgleish/bespoke-keys">bespoke-keys</a></h3>

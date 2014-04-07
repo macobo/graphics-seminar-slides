@@ -86,6 +86,27 @@ article
     page-break-before: always
     position: static
     margin: 0
+  &.left
+
+      article
+
+          padding-left: 10%
+          text-align: left
+
+      li
+
+          list-style-position: inside
+          margin-left: 40px
+          list-style: disc
+
+          .aside
+
+              margin-left: 20px
+  article
+
+      vertical-align: middle
+      display: table-cell
+      width: 50%
 
 .bespoke-before
   transform: translateX(slide_transition_nudge_x * -1) translateX(slide_width / -2) rotateY(slide_transition_rotate_y * -1) translateX(slide_width / -2)
@@ -160,6 +181,7 @@ pre.snippet
     font-size: 9px
     overflow: scroll
     padding: 20px
+    padding-right: 0px
     height: 100%
     width: 100%
     left: 0
@@ -172,7 +194,7 @@ pre.snippet
       //border-top: $border
       background: darken( #272822, 2% )
       position: relative
-      padding: 10px 0 10px 20px
+      padding: 10px 0 10px 00px
       margin: 10px 0
       width: 100%
       left: -20px
@@ -183,7 +205,7 @@ pre.snippet
   width: 100%
   right: 0
   top: 0
-a.demo-link
+.demo-link
   font-size: 10px
 .play
   background: fade-out( #06b3db, 0.05 )
@@ -213,11 +235,23 @@ a.demo-link
       width: 50%
   .play
       width: 50%
+.diagram
 
+    background-position: center
+    background-repeat: no-repeat
+    background-size: contain
+
+    &.right-center
+
+        background-position: right center
+
+    &.left-center
+
+        background-position: left center
 // prism styles
 
 pre
-  padding: 26px !important
+  //padding: 26px !important
   border-radius: 8px
 
 // content styles
