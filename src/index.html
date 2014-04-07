@@ -15,6 +15,7 @@
     <article>
       <section>
         <h1>Particle systems</h1>
+        <h3 class="pull-right">Karl-Aksel Puulmann, 2014</h3>
       </section>
       <section data-bespoke-hash="what_is_it">
         <h2>What is a particle system</h2>
@@ -58,6 +59,7 @@
           <li>color</li>
           <li>speed</li>
           <li>size</li>
+          <li>transparency</li>
           <li>acceleration, force accumulators, ....</li>
         </ul>
       </section>
@@ -104,20 +106,15 @@
       </section>
 
       <section>
-        <h2>Rendering</h2>
+        <h2 class="bullet">Rendering</h2>
         <ul>
-          <li></li>
+          <li>Render each particle as a quad facing camera.
+          <li>Apply sprites/textures in shaders.</li>
+          <li>Do distance sorting beforehand - avoids issues with transparency.</li>
+          <li>Often handled for you?</li>
         </ul>
       </section>
 
-<!--       <section>
-        <h2>Three.js example</h2>
-
-        <a href="http://jeromeetienne.github.io/fireworks.js/examples/smoke/webgl_blacksmoke.html">
-          jeromeetienne.github.io/fireworks.js/examples/smoke/webgl_blacksmoke.html
-        </a>
-
-      </section> -->
       <section>
         <h2>Fireworks.js examples</h2>
       </section>
@@ -143,7 +140,7 @@
         </ul>
       </section>
 
-      <section data-demo="http://soulwire.github.io/Coffee-Physics/" data-auto="true" data-include-link>
+      <section data-demo="http://soulwire.github.io/Coffee-Physics/" data-auto="true" data-insert-link>
         
       </section>
 
@@ -156,8 +153,7 @@
       </section>
 
       <section data-demo="http://minimal.be/lab/fluGL/index80000.html"
-              data-auto="true">
-        <a href="http://minimal.be/lab/fluGL/index80000.html" class="demo-link">minimal.be/lab/fluGL/index80000.html</a>
+              data-auto="true" data-insert-link>
       </section>
 
       <section>
@@ -183,8 +179,11 @@
         </p>
       </section>
 
-      <section data-demo="http://www.cake23.de/fmx/turing-fluid-particle-projection-feedback.html" data-auto="true" data-include-link>
-        
+      <section data-demo="http://www.cake23.de/fmx/turing-fluid-particle-projection-feedback.html" data-auto="true" data-insert-link>
+      </section>
+
+      <section>
+        <iframe width="560" height="315" src="//www.youtube.com/embed/eSWm_VImgFQ" frameborder="0" allowfullscreen></iframe>
       </section>
 
       <section>
@@ -246,7 +245,14 @@
       </section>
 
       <section>
-        <iframe width="560" height="315" src="//www.youtube.com/embed/eSWm_VImgFQ" frameborder="0" allowfullscreen></iframe>
+        <h2 class="bullet">Modeling humans?</h2>
+        <ul>
+          <li>Personal space.</li>
+          <li>Don't get too close to obstacles.</li>
+          <li>Hidden motivations.</li>
+          <li>What happens on collisions?</li>
+          <li>Traffic crossing?</li>
+        </ul>
       </section>
 
       <section>
