@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Particle systems</title>
+    <link rel="stylesheet" href="styles/styles.css"/>
+  </head>
+  <body>
+    <!-- <img src="img/ITA_small-logo-white-eng.png" id="itlogo"/> -->
+    <article>
+      <section>
+        <h1>Particle systems</h1>
+        <h5 class="pull-right">Karl-Aksel Puulmann, 2014</h5>
+      </section>
+      <section data-bespoke-hash="what_is_it">
+        <h2>What is a particle system</h2>
+        <ul>
+          <li></li>
+          <li>Series of individiual particles.</li>
+          <li>Mainly used to model complex systems.</li>
+          <li>Fire, smoke, fireworks, snow, stars, ...</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Basic demos</h2>
+      </section>
+
+      <section data-demo="examples/fire.html" data-auto="true">
+        <a href="http://stemkoski.github.io/Three.js/Particle-Engine.html" class="demo-link">
+          stemkoski.github.io/Three.js/Particle-Engine.html
+        </a>
+      </section>
+
+      <section data-demo="http://stemkoski.github.io/Three.js/Particle-Engine.html" data-auto="true" data-insert-link>
+      </section>
+
+      <section data-demo="http://jeromeetienne.github.io/fireworks.js/examples/smoke/webgl_blacksmoke.html" data-auto="true" data-insert-link>
+      </section>
+
+      <section data-demo="http://www.bongiovi.tw/experiments/webgl/blossom/" data-auto="true" data-insert-link>
+      </section>
+
+      <section data-demo="http://threejs.org/examples/webgl_particles_shapes.html" data-auto="true" data-insert-link>
+      </section>
+
+      <section>
+        <h2>So, to generalize - particles</h2>
+        <ul>
+          <li></li>
+          <li>Have a number of attributes associated with them</li>
+          <li>position</li>
+          <li>lifetime</li>
+          <li>color</li>
+          <li>speed</li>
+          <li>size</li>
+          <li>transparency</li>
+          <li>acceleration, force accumulators, ....</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="bullet">In addition...</h2>
+        <ul>
+          <li>We can give a texture to each particle.</li>
+          <li>Initial values of attributes are usually "fuzzy".</li>
+          <li>Behaviour changes with time.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Emitters</h2>
+        <ul>
+          <li></li>
+          <li>Centralpiece of each particle system, commander.<li>
+          <li>Controls the spawn rate of particles.</li>
+          <li>Allows to add behaviours to particles.</li>
+          <li>Particles (usually) originate from emitters coordinates.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Updating state</h2>
+        <ul>
+          <li></li>
+          <li>A general particle engine must allow the user to change the state of each particle on updates.</li> 
+          <li>Usually handled by allowing to attach custom "event handlers".</li>
+          <li>Efficiency - dead particles are reused.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Basic loop</h2>
+        <ul>
+          <li></li>
+          <li>New particles are created, .onCreate handlers called for each particle (set position, initial color, etc).</li>
+          <li>Particles exceeding lifetime killed, returning them to particle pool.</li>
+          <li>For each particle, a .update call is made (doing movement, etc).</li>
+          <li>Render</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="bullet">Rendering</h2>
+        <ul>
+          <li>Render each particle as a quad facing camera.
+          <li>Apply sprites/textures in shaders.</li>
+          <li>Do distance sorting beforehand - avoids issues with transparency.</li>
+          <li>?Often handled for you?</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Fireworks.js examples</h2>
+      </section>
+
+      <section data-both="examples/smoke.html" data-auto="true"></section>
+
+      <!-- <section data-code="examples/fireworks.js.html"></section> -->
+      <section data-both="examples/flamethrower.html" data-auto="true">
+      </section>
+
+      <section>
+        <h2 class="bullet">Time to go home?</h2>
+        <h4 class="bullet">Nah. Stuff so far has been pretty basic (lots of demos).</h4>
+      </section>
+
+      <section>
+        <h3 class="bullet">Motion of a particle can be driven by:</h4>
+        <br/>
+        <ul>
+          <li>Exterior forces: wind, gravity, targetting</li>
+          <li>Physical interaction - gravity, spring connections, collisions</li>
+          <li>"self determination" - AI, randomness</li>
+        </ul>
+      </section>
+
+      <section data-demo="http://soulwire.github.io/Coffee-Physics/" data-auto="true" data-insert-link>
+        
+      </section>
+
+      <section>
+        <h2 class="bullet">Performance</h2>
+        <ul>
+          <li>Increasing particle count makes stuff more impressive.</li>
+          <li><strong>But,</strong> it gets slow fast</li>
+        </ul>
+      </section>
+
+      <section data-demo="http://minimal.be/lab/fluGL/index80000.html"
+              data-auto="true" data-insert-link>
+      </section>
+
+      <section>
+        <h2 class="bullet">(Increasing) performance</h2>
+        <ul>
+          <li>Problem is that we're doing work in serial.</li>
+          <li>Idea: web workers?</li>
+          <li>Idea: can we offload calculations to the GPU?</li>
+          <li>Yes we can - let's use shaders!</li>
+        </ul>
+      </section>
+
+      <section>
+        <img src="https://raw.githubusercontent.com/hugeinc/doctype-meetup/c28e6d03470ed220f93597a920251726d8931332/dissecting-webgl/assets/img/physics.png" 
+        style="width: 600px; height: 400px; position: absolute; top: 0px;" />
+      </section>
+
+
+      <section data-demo="http://codepen.io/anon/pen/IvHKi?editors=000" data-auto="true">
+        <p class="demo-link">
+          Modified version of <a href="http://soulwire.github.io/WebGL-GPU-Particles/">http://soulwire.github.io/WebGL-GPU-Particles/</a> via
+          <a href="http://codepen.io/anon/pen/IvHKi?editors=111">Codepen</a>
+        </p>
+      </section>
+
+      <section data-demo="http://www.cake23.de/fmx/turing-fluid-particle-projection-feedback.html" data-auto="true" data-insert-link>
+      </section>
+
+      <section>
+        <iframe width="560" height="315" src="//www.youtube.com/embed/eSWm_VImgFQ" frameborder="0" allowfullscreen></iframe>
+      </section>
+
+      <section>
+        <h2 class="bullet">But - this is a tradeoff</h2>
+        <h4 class="bullet">Fast vs easy to develop.</h4>
+      </section>
+
+
+      <section>
+        <h2>Other uses</h2>
+        <h4>Morphing, exploding pictures, ...</h4>
+      </section>
+
+      <section data-demo="http://oos.moxiecode.com/js_webgl/particles_morph/" data-auto="true" data-insert-link></section>
+
+      <section data-demo="http://www.play-create.com/projects/smokeandmirror/" data-auto="true" data-insert-link></section>
+
+      <section data-demo="http://nucleal.com/" data-auto="true" data-insert-link></section>
+
+      <section data-demo="http://plopbyte.com/webgl-particles-demo/" data-auto="true" data-insert-link></section>
+
+      <section>
+        <iframe width="420" height="315" src="http://www.youtube.com/embed/cJ0fDxa0M8M?start=200" frameborder="0" allowfullscreen></iframe>
+      </section>
+
+      <section>
+        <h2>Crowd modeling</h2>
+        <ul>
+          <li>Particles represent agents, creatures.</li>
+          <li>Option - each agent controlled separately, neighbors taken into account.</li>
+          <li>Option - behaviour of the whole group is modeled.</li>
+          <li>Used for example in LOTR - <a href="http://knoesis.wright.edu/students/topher/courses/anim/slides/lotr_prologue_battle.html">link to an article</a>.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Flocking</h2>
+        <ul>
+          <li>Algorithm for simulating groups of entities moving together.</li>
+          <li>Developed by Craig Reynolds in 1986.</li>
+          <li>All entities are controlled by three rules.</li>
+          <li></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="bullet">Flocking - rules</h2>
+        <ul>
+          <li>Separation - don't let other agents get too close.</li>
+          <li>Alignment - steer towards average heading of neighbors.</li>
+          <li>Cohersion - steer towards average position of neighbors.</li>
+        </ul>
+      </section>
+
+      <section data-demo="http://harry.me/blog/2011/02/17/neat-algorithms-flocking/" data-auto="true" data-insert-link></section>
+
+      <section data-demo="http://jabtunes.com/labs/3d/gpuflocking/webgl_gpgpu_flocking6.html" data-auto="true" data-insert-link>
+        
+        <a class="demo-link" href="http://www.lab4games.net/zz85/blog/2014/02/17/webgl-gpgpu-flocking-birds-part-ii-shaders/">Blogpost</a>
+      </section>
+
+      <section>
+        <h2 class="bullet">Modeling humans?</h2>
+        <ul>
+          <li>Personal space.</li>
+          <li>Don't get too close to obstacles.</li>
+          <li>Hidden motivations.</li>
+          <li>What happens on collisions?</li>
+          <li>Traffic crossing?</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="bullet">Recap</h2>
+        <ul>
+          <li>Particle system - collection of individual particles.</li>
+          <li>Used to visualize complex systems.</li>
+          <li>Properties and lifecycles of particles, how to update.</li>
+          <li>How to render particles, sprites.</li>
+          <li>Forces that affect particles, how to simulate.</li>
+          <li>How to render 1M particles.</li>
+          <li>How to model crowds, birds.</li>
+          <li>Demos!</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Suggested reading</h2>
+        <ul class="no-bullets">
+          <li>
+            <a href="http://knoesis.wright.edu/students/topher/courses/anim/slides/lotr_prologue_battle.html">
+              Lord of the Rings prologue battle
+            </a>
+          </li>
+          <li>
+            <a href="http://harry.me/blog/2011/02/17/neat-algorithms-flocking/">Neat algorithms - flocking</a>
+          </li>
+          <li>
+            Creation of 1M particles
+            <a href="http://new.livestream.com/hugeinc/events/2192947/videos/22080233?query=webgl&cat=video">talk</a>, <a href="https://github.com/hugeinc/doctype-meetup/tree/master/dissecting-webgl">slides</a>
+          </li>
+          <li>
+            <a href="http://www.soulwire.co.uk/experiments">
+              Experiments by Justin Widle
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <section data-demo="http://macobo.github.io/WebGL-Audio-Visualization/#/thankyou" data-auto="true" data-insert-link></section>
+
+      <!-- What do you mean, it's not real? https://www.youtube.com/watch?v=T6W3oiifhKE -->
+      <!--
+            Demos:
+              GLOW animals: 
+                  http://empaempa.github.io/GLOW/examples/complicated/
+              80000 particles - visually very impressive! 
+                  http://minimal.be/lab/fluGL/index80000.html
+              1M particles
+                  http://www.nutty.ca/?p=320
+
+              Most impressive image blowup
+                  http://plopbyte.com/webgl-particles-demo/
+
+              Simpler demo
+                  http://threejs.org/examples/webgl_particles_shapes.html
+                  http://www.bongiovi.tw/experiments/webgl/blossom/
+
+              Same guy-idea as smoke
+                  http://www.play-create.com/id.php?032
+            
+
+            http://www.cake23.de/fmx/turing-fluid-particle-projection-feedback.html
+
+            
+            Engines
+              Coffee physics: http://soulwire.co.uk/experiments/coffee-physics/
+
+            Videos
+              https://vimeo.com/19920603
+      -->
+
+    </article>
+    <footer id="footer">
+      <img src="http://www.cs.ut.ee/sites/default/files/2013/logod/ITA_small-logo-eng.png" />
+    </footer>
+    <script src="scripts/scripts.js"></script>
+  <!-- livereload script -->
+<script type="text/javascript">document.write('<script src="http://'
+ + (location.host || 'localhost').split(':')[0]
+ + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
+</script>
+</body>
+</html>
